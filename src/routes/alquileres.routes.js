@@ -57,17 +57,31 @@ router.get("/fecha_inicio", async (req, res) => {
   }
 });
 
-
 // 11. Obtener los detalles del alquiler que tiene fecha de inicio en '2023-07-05'.
 router.get("/fecha", async (req, res) => {
-    try {
-      const alquilerFound = await alquiler.findOne({
-        Fecha_Inicio: "2023-07-05",
-      });
-      res.json({ status: 200, alquiler: alquilerFound });
-    } catch (error) {
-      res.status(500).json({ status: 500, error });
-    }
-  });
-  
+  try {
+    const alquilerFound = await alquiler.findOne({
+      Fecha_Inicio: "2023-07-05",
+    });
+    res.json({ status: 200, alquiler: alquilerFound });
+  } catch (error) {
+    res.status(500).json({ status: 500, error });
+  }
+});
+
+// 9. Obtener el costo total de un alquiler específico.
+router.get("/:id/total", async (req, res) => {
+  try {
+    const { id: strId } = req.params;
+    const id = parseInt(strId);
+    const alquilerFound = await alquiler.findOne(
+      { ID_Alquiler: id },
+      { projection: { Costo_Total: 1, ID_Alquiler: 1, _id: 0 } }
+    );
+    res.json({ status: 200, alquiler: alquilerFound });
+  } catch (error) {
+    res.status(500).json({ status: 500, error });
+  }
+});
+
 export { router };
