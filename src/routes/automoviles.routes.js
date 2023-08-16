@@ -1,6 +1,7 @@
 import { Router } from "express";
 import db from "../db/config.js";
 const automovil = db.collection("automovil");
+const alquiler = db.collection("alquiler");
 const router = Router();
 
 // 16. Listar todos los automóviles ordenados por marca y modelo.
@@ -74,6 +75,18 @@ router.get("/disponibles_capacidad5", async (req, res) => {
       ])
       .toArray();
     res.json({ status: 200, automoviles_disponibles: autosDispo });
+  } catch (error) {
+    res.status(500)({ status: 500, error });
+  }
+});
+
+// 11.Mostrar todos los automóviles con una capacidad mayor a 5 personas.
+router.get("/mayor_5", async (req, res) => {
+  try {
+    const autosFound = await automovil
+      .find({ Capacidad: { $gt: 5 } })
+      .toArray();
+    res.json({ status: 200, automoviles: autosFound });
   } catch (error) {
     res.status(500)({ status: 500, error });
   }
