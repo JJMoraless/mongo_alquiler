@@ -48,4 +48,35 @@ router.get("/disponibles", async (req, res) => {
   }
 });
 
+// 18. Mostrar los automóviles con capacidad igual a 5 personas y que estén disponibles.
+
+router.get("/disponibles_capacidad5", async (req, res) => {
+  try {
+    const autosDispo = await alquiler
+      .aggregate([
+        {
+          $lookup: {
+            from: "automovil",
+            localField: "ID_Automovil",
+            foreignField: "ID_Automovil",
+            as: "automovil",
+          },
+        },
+        {
+          $unwind: "$automovil",
+        },
+        {
+          $match: {
+            Estado: "Disponible",
+            "automovil.Capacidad": 5,
+          },
+        },
+      ])
+      .toArray();
+    res.json({ status: 200, automoviles_disponibles: autosDispo });
+  } catch (error) {
+    res.status(500)({ status: 500, error });
+  }
+});
+
 export { router };
