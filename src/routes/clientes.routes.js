@@ -17,6 +17,7 @@ router.get("/", async (req, res) => {
   }
 });
 
+// 15.Obtener los datos de los clientes que realizaron al menos un alquiler
 router.get("/unalquiler", async (req, res) => {
   try {
     const reservasFound = await alquiler
@@ -57,3 +58,4 @@ router.get("/:DNI", async (req, res) => {
     }
   });
   
+export { router };
