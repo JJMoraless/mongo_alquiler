@@ -84,4 +84,16 @@ router.get("/:id/total", async (req, res) => {
   }
 });
 
+// 6. Obtener los detalles del alquiler con el ID_Alquiler específico.
+router.get("/:id", async (req, res) => {
+  try {
+    const { id: strId } = req.params;
+    const id = parseInt(strId);
+    const alquilerFound = await alquiler.findOne({ ID_Alquiler: id });
+    res.json({ status: 200, alquiler: alquilerFound });
+  } catch (error) {
+    res.status(500).json({ status: 500, error });
+  }
+});
+
 export { router };
