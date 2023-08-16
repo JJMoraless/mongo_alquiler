@@ -8,6 +8,9 @@
 - ejecute la app `npm run dev`
 
 ## Endpoints método get de ejemplo:
+- antes de usar cualquier funcionalidad primero tiene que obtener un token, el token sirve para cualquier endpoint y dura 1 día, el token se almacena en cookies y se valida desde la cookies, o también puede poner el token en la cabeceras como `authorization` .
+- para obtener el token use el endpoint: http://localhost:5050/auth/login
+- para eliminar el token use el endpoint: http://localhost:5050/auth/logout
 
 | total alquileres registrados en la db | http://localhost:5050/alquileres/total |
 | --- | --- |
