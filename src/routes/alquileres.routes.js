@@ -40,4 +40,21 @@ router.get("/activos", async (req, res) => {
   }
 });
 
+// 20. Listar los alquileres con fecha de inicio entre '2023-07-05' y '2023-07-10'.
+router.get("/fecha_inicio", async (req, res) => {
+  try {
+    const alquileresFound = await alquiler
+      .find({
+        Fecha_Inicio: {
+          $gte: "2023-07-05",
+          $lte: "2023-07-10",
+        },
+      })
+      .toArray();
+    res.json({ status: 200, alquileres: alquileresFound });
+  } catch (error) {
+    res.status(500).json({ status: 500, error });
+  }
+});
+
 export { router };
