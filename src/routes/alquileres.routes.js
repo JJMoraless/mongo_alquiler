@@ -57,4 +57,17 @@ router.get("/fecha_inicio", async (req, res) => {
   }
 });
 
+
+// 11. Obtener los detalles del alquiler que tiene fecha de inicio en '2023-07-05'.
+router.get("/fecha", async (req, res) => {
+    try {
+      const alquilerFound = await alquiler.findOne({
+        Fecha_Inicio: "2023-07-05",
+      });
+      res.json({ status: 200, alquiler: alquilerFound });
+    } catch (error) {
+      res.status(500).json({ status: 500, error });
+    }
+  });
+  
 export { router };
