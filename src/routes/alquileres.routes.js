@@ -14,4 +14,30 @@ router.get("/total", async (req, res) => {
   }
 });
 
+// 4. Listar todos los alquileres activos junto con los datos de los clientes relacionados.
+router.get("/activos", async (req, res) => {
+  try {
+    const reservasFound = await alquiler
+      .aggregate([
+        {
+          $lookup: {
+            from: "cliente",
+            localField: "ID_Cliente",
+            foreignField: "ID_Cliente",
+            as: "cliente",
+          },
+        },
+        {
+          $match: {
+            Estado: "Activo",
+          },
+        },
+      ])
+      .toArray();
+    res.json({ status: 200, reservas_activas: reservasFound });
+  } catch (error) {
+    res.status(500).json({ status: 500, error });
+  }
+});
+
 export { router };
