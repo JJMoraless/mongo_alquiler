@@ -45,3 +45,15 @@ router.get("/unalquiler", async (req, res) => {
     res.status(500)({ status: 500, error });
   }
 });
+
+// 10.Listar los clientes con el DNI específico. 
+router.get("/:DNI", async (req, res) => {
+    const { DNI } = req.params;
+    try {
+      const clienteFound = await clientes.findOne({ DNI });
+      res.json({ status: 200, clientes: clienteFound });
+    } catch (error) {
+      res.status(500)({ status: 500, error });
+    }
+  });
+  
