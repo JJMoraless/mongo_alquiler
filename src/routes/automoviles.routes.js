@@ -10,7 +10,7 @@ router.get("/", async (req, res) => {
     const autosFound = await automovil.find().sort({ Marca: 1 }).toArray();
     res.json({ status: 200, automoviles: autosFound });
   } catch (error) {
-    res.status(500)({ status: 500, error });
+    res.status(500).json({ status: 500, error });
   }
 });
 
@@ -45,7 +45,7 @@ router.get("/disponibles", async (req, res) => {
       .toArray();
     res.json({ status: 200, automoviles_disponibles: autosDispo });
   } catch (error) {
-    res.status(500)({ status: 500, error });
+    res.status(500).json({ status: 500, error });
   }
 });
 
@@ -76,7 +76,7 @@ router.get("/disponibles_capacidad5", async (req, res) => {
       .toArray();
     res.json({ status: 200, automoviles_disponibles: autosDispo });
   } catch (error) {
-    res.status(500)({ status: 500, error });
+    res.status(500).json({ status: 500, error });
   }
 });
 
@@ -88,7 +88,7 @@ router.get("/mayor_5", async (req, res) => {
       .toArray();
     res.json({ status: 200, automoviles: autosFound });
   } catch (error) {
-    res.status(500)({ status: 500, error });
+    res.status(500).json({ status: 500, error });
   }
 });
 
