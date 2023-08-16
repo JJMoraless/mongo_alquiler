@@ -1,9 +1,11 @@
 import { Router } from "express";
 import db from "../db/config.js";
+import { authRequired } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 const clientes = db.collection("cliente");
 const alquiler = db.collection("alquiler");
+router.use(authRequired)
 
 
 // 2. Mostrar todos los clientes registrados en la base de datos.
@@ -13,7 +15,7 @@ router.get("/", async (req, res) => {
     const clientesFound = await clientes.find().toArray();
     res.json({ status: 200, clientes: clientesFound });
   } catch (error) {
-    res.status(500)({ status: 500, error });
+    res.status(500).json({ status: 500, error });
   }
 });
 
@@ -43,7 +45,7 @@ router.get("/unalquiler", async (req, res) => {
       .toArray();
     res.json({ status: 200, clientes_reserva: reservasFound });
   } catch (error) {
-    res.status(500)({ status: 500, error });
+    res.status(500).json({ status: 500, error });
   }
 });
 
@@ -54,7 +56,7 @@ router.get("/:DNI", async (req, res) => {
       const clienteFound = await clientes.findOne({ DNI });
       res.json({ status: 200, clientes: clienteFound });
     } catch (error) {
-      res.status(500)({ status: 500, error });
+      res.status(500).json({ status: 500, error });
     }
   });
   

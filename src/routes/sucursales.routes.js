@@ -1,7 +1,9 @@
 import { Router } from "express";
 import db from "../db/config.js";
+import { authRequired } from "../middlewares/auth.middleware.js";
 const router = Router();
 const sucursalAuto = db.collection("sucursal_automovil");
+router.use(authRequired)
 
 // 8. Mostrar la cantidad total de automóviles disponibles en cada sucursal.
 router.get("/autos_totales", async (req, res) => {

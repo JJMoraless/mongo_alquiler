@@ -1,8 +1,10 @@
 import { Router } from "express";
 import db from "../db/config.js";
+import { authRequired } from "../middlewares/auth.middleware.js";
 const automovil = db.collection("automovil");
 const alquiler = db.collection("alquiler");
 const router = Router();
+router.use(authRequired)
 
 // 16. Listar todos los automóviles ordenados por marca y modelo.
 router.get("/", async (req, res) => {

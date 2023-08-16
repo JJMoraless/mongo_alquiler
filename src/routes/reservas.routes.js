@@ -1,7 +1,9 @@
 import { Router } from "express";
 import db from "../db/config.js";
+import { authRequired } from "../middlewares/auth.middleware.js";
 const router = Router();
 const reserva = db.collection("reserva");
+router.use(authRequired)
 
 // 13. Listar las reservas pendientes realizadas por un cliente específico.
 
@@ -29,7 +31,7 @@ router.get("/pendientes/:idCliente", async (req, res) => {
       .toArray();
     res.json({ status: 200, reservas_pendientes: autosDispo, idCliente });
   } catch (error) {
-    res.status(500)({ status: 500, error });
+    res.status(500).json({ status: 500, error });
   }
 });
 
@@ -64,7 +66,7 @@ router.get("/pendientes", async (req, res) => {
       .toArray();
     res.json({ status: 200, reservas_pendientes: autosDispo });
   } catch (error) {
-    res.status(500)({ status: 500, error });
+    res.status(500).json({ status: 500, error });
   }
 });
 

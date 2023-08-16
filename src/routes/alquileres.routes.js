@@ -1,7 +1,10 @@
 import { Router } from "express";
 import db from "../db/config.js";
+import { authRequired } from "../middlewares/auth.middleware.js";
 const router = Router();
 const alquiler = db.collection("alquiler");
+
+router.use(authRequired)
 
 // 17. Obtener la cantidad total de alquileres registrados en la base de datos.
 
